@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Delete Book</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Delete Book</h1>
+
+  <div class="confirm-box">
+    Are you sure you want to delete:
+    <strong>{{ book.title }}</strong> by {{ book.author }}?
+  </div>
+
+  <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+      <a href="{% url 'book-detail' book.pk %}" class="btn btn-secondary">Cancel</a>
+  </form>
+
+</div>
+
+</body>
+</html>

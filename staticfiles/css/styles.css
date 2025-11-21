@@ -1,0 +1,137 @@
+/* static/css/styles.css
+   Modern, minimal styles for your Book CRUD templates
+*/
+
+/* Reset & base */
+* { box-sizing: border-box; }
+html,body { height:100%; margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#222; background:#f6f8fb; }
+
+.container {
+  max-width: 960px;
+  margin: 36px auto;
+  padding: 28px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(28,33,41,0.06);
+}
+
+/* Header */
+h1 {
+  margin: 0 0 14px 0;
+  font-size: 1.6rem;
+  color:#0f1724;
+  letter-spacing: -0.2px;
+}
+
+/* Small meta */
+.meta {
+  color:#6b7280;
+  font-size:0.9rem;
+  margin-bottom:18px;
+}
+
+/* Book detail layout */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.detail-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(15,23,36,0.06);
+  background: linear-gradient(180deg,#fff,#fafafa);
+  box-shadow: 0 4px 14px rgba(2,6,23,0.04);
+}
+
+/* Text area */
+.description {
+  line-height: 1.6;
+  color: #111827;
+  font-size: 1rem;
+  background: #fcfdff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(15,23,36,0.03);
+}
+
+/* Actions */
+.actions {
+  margin-top: 18px;
+}
+.btn {
+  display:inline-block;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: linear-gradient(180deg,#2563eb,#1e40af);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(30,64,175,0.12);
+}
+.btn-secondary {
+  background: #f3f4f6;
+  color:#0f1724;
+  border: 1px solid rgba(15,23,36,0.04);
+}
+.btn-danger {
+  background: linear-gradient(180deg,#ef4444,#b91c1c);
+  color:#fff;
+}
+
+/* List (book_list) helpful cards */
+.card-list { display:grid; gap:12px; }
+.card {
+  display:flex; gap:12px; align-items:center;
+  padding:10px; border-radius:10px;
+  background:#ffffff; border:1px solid rgba(2,6,23,0.03);
+}
+.card img { width:64px; height:96px; object-fit:cover; border-radius:6px; }
+
+/* Form styles */
+form { margin-top: 10px; }
+label { display:block; margin-bottom:6px; font-weight:600; color:#0f1724; }
+input[type="text"], input[type="date"], input[type="file"], textarea {
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid rgba(15,23,36,0.08);
+  background:#fff;
+  font-size:0.95rem;
+  margin-bottom:14px;
+}
+textarea { min-height:120px; resize:vertical; }
+
+.form-row { margin-bottom:8px; }
+
+/* Confirm delete */
+.confirm-box {
+  padding: 18px;
+  border-radius: 10px;
+  background: #fff7f7;
+  border: 1px solid rgba(239,68,68,0.12);
+  color: #7f1d1d;
+}
+
+/* Small helpers */
+.small { font-size:0.9rem; color:#6b7280; }
+.hr { height:1px; background: #eef2f6; margin: 18px 0; border-radius:2px; }
+
+/* Responsive */
+@media (max-width:720px) {
+  .container { margin:16px; padding:16px; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .card { flex-direction:row; }
+}

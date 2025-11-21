@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ book.title }}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>{{ book.title }}</h1>
+  <div class="meta">By {{ book.author }} · {{ book.published_date }}</div>
+
+  <div class="detail-grid">
+
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" alt="Book Cover">
+    {% else %}
+      <div class="card small">No cover uploaded.</div>
+    {% endif %}
+
+    <div>
+      <div class="description">
+        {{ book.description|linebreaks }}
+      </div>
+
+      <div class="actions">
+        <a href="{% url 'book-update' book.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'book-list' %}" class="btn btn-secondary">Back</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

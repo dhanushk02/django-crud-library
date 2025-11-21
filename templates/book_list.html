@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Books</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Books</h1>
+
+  <div class="actions" style="margin-bottom: 16px;">
+    <a href="{% url 'book-create' %}" class="btn btn-primary">Add New Book</a>
+  </div>
+
+  {% if books %}
+  <div class="card-list">
+    {% for book in books %}
+      <div class="card">
+
+        {% if book.cover %}
+          <img src="{{ book.cover.url }}" alt="cover">
+        {% else %}
+          <img src="https://via.placeholder.com/80x120?text=No+Cover" alt="no cover">
+        {% endif %}
+
+        <div>
+          <a href="{{ book.get_absolute_url }}" style="font-weight:600; color:#0f1724;">
+            {{ book.title }}
+          </a>
+          <div class="small">
+            {{ book.author }}
+          </div>
+
+          <div class="actions" style="margin-top:6px;">
+            <a href="{% url 'book-update' book.pk %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+    <p class="small">No books yet.</p>
+  {% endif %}
+
+</div>
+
+</body>
+</html>
