@@ -1,16 +1,17 @@
 """
 WSGI config for mysite project.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+Exposes the WSGI callable as ``application`` and also provides `app` and `handler`
+aliases for platforms that expect those names (e.g., Vercel).
 """
 
 import os
-
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
 application = get_wsgi_application()
+
+# Aliases expected by some serverless hosts (Vercel)
+app = application
+handler = application

@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from pathlib import Path
 import cloudinary
+import os
+from decouple import config, Csv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*m&y$n2r%5w-qqg^=hnm^z^j42x!y@i8h$x3ao993uunvobl2r'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-*m&y$n2r%5w-qqg^=hnm^z^j42x!y@i8h$x3ao993uunvobl2r')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default='False').lower() in ('1', 'true', 'yes')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv()) or ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -62,6 +65,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -71,6 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
+ASGI_APPLICATION = 'mysite.asgi.application'
 
 
 # Database
@@ -84,17 +89,22 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # }
 
 # postgresql://postgres:wjcIMJjuKyCFYPUqwpNaWfHFnFeDhtCx@turntable.proxy.rlwy.net:30387/railway
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'wjcIMJjuKyCFYPUqwpNaWfHFnFeDhtCx',
-        'HOST': 'turntable.proxy.rlwy.net',
-        'PORT': 30387 ,
+DATABASE_URL = config('DATABASE_URL', default='')
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': 'postgres',
+            'PASSWORD': 'wjcIMJjuKyCFYPUqwpNaWfHFnFeDhtCx',
+            'HOST': 'turntable.proxy.rlwy.net',
+            'PORT': 30387 ,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -140,7 +150,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import cloudinary
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "dqbga0qgg",
     "API_KEY": "323929835374198",
